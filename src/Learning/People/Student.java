@@ -8,21 +8,21 @@ import java.util.List;
 
 public class Student extends Person
 {
-    private final List<Course> courses;
+    private final List<Course> takenCourses;
 
     /** Constructor */
     public Student(String firstName, String lastName, LocalDate birthdate, String gender, String email, String phone) {
         super(firstName, lastName, birthdate, gender, email, phone);
-        this.courses = new ArrayList<>();
+        this.takenCourses = new ArrayList<>();
     }
 
     public List<Course> getCourses() {
-        return courses;
+        return takenCourses;
     }
 
     public void addCourse(Course course)
     {
-        courses.add(course);
+        takenCourses.add(course);
     }
 
     public double getPay()
@@ -32,7 +32,7 @@ public class Student extends Person
 
     private double calculatePayment()
     {
-        return courses.stream().mapToDouble(Course::getPrice).sum();
+        return takenCourses.stream().mapToDouble(Course::getPrice).sum();
     }
 
     public void apply(Course course)
