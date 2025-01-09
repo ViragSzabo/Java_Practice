@@ -1,4 +1,4 @@
-package Learning;
+package Learning.Exceptions;
 
 public class StudentNotFound extends Exception
 {

@@ -1,9 +1,9 @@
-package Learning;
+package Learning.People;
 
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Student
+public class Person
 {
     private String firstName;
     private String lastName;
@@ -12,8 +12,8 @@ public class Student
     private String email;
     private String phone;
 
-    public Student(String firstName, String lastName, LocalDate birthdate,
-                   String gender, String email, String phone)
+    public Person(String firstName, String lastName, LocalDate birthdate,
+                  String gender, String email, String phone)
     {
         this.firstName = firstName;
         this.lastName = lastName;

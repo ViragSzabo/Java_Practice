@@ -1,5 +1,6 @@
-package Learning;
+package Learning.People;
 
+import Learning.Course;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,11 +11,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class StudentTest
 {
     public Student student1;
+    public Course course;
+    public Lecturer lecturer1;
 
     @BeforeEach
     void setUp()
     {
         student1 = new Student("", "", LocalDate.now(), "", "", "");
+        lecturer1 = new Lecturer("", "", LocalDate.now(), "", "", "", 5000);
+        course = new Course("", lecturer1);
     }
 
     @Test
@@ -68,5 +73,20 @@ class StudentTest
     {
         student1.setBirthdate(LocalDate.of(1985,10,8));
         assertEquals(39, student1.getAge());
+    }
+
+    @Test
+    void getPay()
+    {
+        student1.apply(course);
+        assertEquals(250.0, student1.getPay());
+    }
+
+    @Test
+    void apply()
+    {
+        assertEquals(0, student1.getCourses().size());
+        student1.apply(course);
+        assertEquals(1, student1.getCourses().size());
     }
 }

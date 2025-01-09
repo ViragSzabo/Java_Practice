@@ -1,16 +1,22 @@
 package Learning;
 
+import Learning.Exceptions.MaxNumberOfStudents;
+import Learning.Exceptions.StudentNotFound;
+import Learning.People.Lecturer;
+import Learning.People.Person;
+import Learning.People.Student;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Course
 {
     private String title;
-    private Lecturer lecturer;
+    private Person lecturer;
     private final List<Student> studentList;
-    private final int MAX_CAPACITY = 10;
+    public final double GENERAL_PRICE = 250;
 
-    public Course(String title, Lecturer lecturer)
+    public Course(String title, Person lecturer)
     {
         this.title = title;
         this.lecturer = lecturer;
@@ -27,7 +33,7 @@ public class Course
         this.title = title;
     }
 
-    public Lecturer getLecturer()
+    public Person getLecturer()
     {
         return lecturer;
     }
@@ -44,6 +50,7 @@ public class Course
 
     public void addStudent(Student student) throws MaxNumberOfStudents
     {
+        int MAX_CAPACITY = 2;
         if(studentList.size() >= MAX_CAPACITY)
         {
             throw new MaxNumberOfStudents("Maximum number of students reached");
@@ -62,5 +69,9 @@ public class Course
         {
             studentList.remove(student);
         }
+    }
+
+    public double getPrice() {
+        return GENERAL_PRICE;
     }
 }
