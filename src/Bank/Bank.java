@@ -37,7 +37,7 @@ public class Bank
         {
             if(customer.getName().equals(name))
             {
-                System.out.println(customer + " is found");
+                System.out.println(customer.getName() + " is found");
             }
             else
             {
