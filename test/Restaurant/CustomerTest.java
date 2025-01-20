@@ -4,6 +4,8 @@ import Restaurant.Consumable.Consumable;
 import Restaurant.Consumable.Drink;
 import Restaurant.Consumable.Pizza;
 import Restaurant.Consumable.Side;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
@@ -17,7 +19,7 @@ class CustomerTest
     public Consumable drink;
     public Consumable side;
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp()
     {
         this.customer = new Customer(
@@ -36,13 +38,7 @@ class CustomerTest
         this.drink = new Drink("Cola", 2.5);
     }
 
-    @org.junit.jupiter.api.Test
-    void getFirstName()
-    {
-        assertEquals("Keanuu", this.customer.getFirstName());
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void setFirstName()
     {
         this.customer.setFirstName("Keanu");
@@ -50,13 +46,7 @@ class CustomerTest
         assertNotEquals("Keanuu", this.customer.getFirstName());
     }
 
-    @org.junit.jupiter.api.Test
-    void getLastName()
-    {
-        assertEquals("Reves", this.customer.getLastName());
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void setLastName()
     {
         this.customer.setLastName("Reeves");
@@ -64,13 +54,7 @@ class CustomerTest
         assertNotEquals("Reves", this.customer.getLastName());
     }
 
-    @org.junit.jupiter.api.Test
-    void getEmail()
-    {
-        assertEquals("keanu.reeves@gmail.com", this.customer.getEmail());
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void setEmail()
     {
         this.customer.setEmail("keanu.reeves.matrix@gmail.com");
@@ -78,13 +62,7 @@ class CustomerTest
         assertNotEquals("keanu.reeves@gmail.com", this.customer.getEmail());
     }
 
-    @org.junit.jupiter.api.Test
-    void getPhone()
-    {
-        assertEquals("+447520529818", this.customer.getPhone());
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void setPhone()
     {
         this.customer.setPhone("+445720529818");
@@ -92,13 +70,7 @@ class CustomerTest
         assertNotEquals("+447520529818", this.customer.getPhone());
     }
 
-    @org.junit.jupiter.api.Test
-    void getAddress()
-    {
-        assertEquals("16 Grove Road", this.customer.getAddress());
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void setAddress()
     {
         this.customer.setAddress("61 Grove Road");
@@ -106,13 +78,7 @@ class CustomerTest
         assertNotEquals("16 Grove Road", this.customer.getAddress());
     }
 
-    @org.junit.jupiter.api.Test
-    void getCity()
-    {
-        assertEquals("Hudders", this.customer.getCity());
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void setCity()
     {
         this.customer.setCity("Huddersfield");
@@ -120,13 +86,7 @@ class CustomerTest
         assertNotEquals("Hudders", this.customer.getCity());
     }
 
-    @org.junit.jupiter.api.Test
-    void getState()
-    {
-        assertEquals("UK", this.customer.getState());
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void setState()
     {
         this.customer.setState("United Kingdom");
@@ -134,13 +94,7 @@ class CustomerTest
         assertNotEquals("UK", this.customer.getState());
     }
 
-    @org.junit.jupiter.api.Test
-    void getZip()
-    {
-        assertEquals("HD209LP", this.customer.getZip());
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void setZip()
     {
         this.customer.setZip("HD201TK");
@@ -148,14 +102,7 @@ class CustomerTest
         assertNotEquals("HD209LP", this.customer.getZip());
     }
 
-    @org.junit.jupiter.api.Test
-    void getOrder()
-    {
-        assertEquals(0, customer.getOrder().size());
-        assertNotEquals(1, customer.getOrder().size());
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void setOrder()
     {
         ArrayList<Consumable> newOrder = new ArrayList<>();
@@ -165,7 +112,7 @@ class CustomerTest
         assertEquals(1, customer.getOrder().size());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void addOrder()
     {
         assertEquals(0, customer.getOrder().size());
@@ -175,7 +122,7 @@ class CustomerTest
         assertEquals(3, customer.getOrder().size());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void calculateTotalPrice()
     {
         assertEquals(0.0, customer.calculateTotalPrice());
@@ -185,13 +132,7 @@ class CustomerTest
         assertEquals(19.490000000000002, customer.calculateTotalPrice());
     }
 
-    @org.junit.jupiter.api.Test
-    void getMoney()
-    {
-        assertEquals(1000.0, customer.getMoney());
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void setMoney()
     {
         assertEquals(1000.0, customer.getMoney());

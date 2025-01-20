@@ -2,8 +2,8 @@ package Restaurant;
 
 public class FailedPayment extends Exception
 {
-    public FailedPayment(String message)
+    public FailedPayment()
     {
-        super(message);
+        System.out.println("Not enough money to pay the bill.");
     }
 }

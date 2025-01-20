@@ -1,13 +1,20 @@
 package Restaurant.Consumable;
 
-public class Drink extends Consumable
+public class Drink extends Consumable implements CaloriesCount
 {
-    public Drink(String name, double price) {
+    /** Constructor of a Drink */
+    public Drink(String name, double price)
+    {
         super(name, price);
     }
 
+    /**
+     * Calculate the calories of a Drink
+     * @return a double amount
+     */
     @Override
-    public double calculateCalories() {
-        return this.price * 2;
+    public double calculateCalories()
+    {
+        return 50;
     }
 }

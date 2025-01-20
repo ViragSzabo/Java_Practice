@@ -1,13 +1,20 @@
 package Restaurant.Consumable;
 
-public class Pizza extends Consumable
+public class Pizza extends Consumable implements CaloriesCount
 {
-    public Pizza(String name, double price) {
+    /** Constructor of a Pizza */
+    public Pizza(String name, double price)
+    {
         super(name, price);
     }
 
+    /**
+     * Calculate the calories of a Pizza
+     * @return a double amount
+     */
     @Override
-    public double calculateCalories() {
-        return this.price * 10;
+    public double calculateCalories()
+    {
+        return 500;
     }
 }

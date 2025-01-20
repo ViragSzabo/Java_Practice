@@ -19,9 +19,9 @@ class PizzaRestaurantTest {
     @BeforeEach
     void setUp() {
         restaurant = new PizzaRestaurant("Pottcast");
-        this.pizza = new Pizza("Dalma", 50.0);
-        this.side = new Side("Fries", 10.0);
-        this.drink = new Drink("Cola", 5.0);
+        this.pizza = new Pizza("Dalma", 200.0);
+        this.side = new Side("Fries", 100.0);
+        this.drink = new Drink("Cola", 50.0);
         this.customer = new Customer(
                 "Keanuu",
                 "Reves",
@@ -36,11 +36,6 @@ class PizzaRestaurantTest {
     }
 
     @Test
-    void getName() {
-        assertEquals("Pottcast", restaurant.getName());
-    }
-
-    @Test
     void setName() {
         restaurant.setName("Pottcast Restaurant");
         assertEquals("Pottcast Restaurant", restaurant.getName());
@@ -48,19 +43,29 @@ class PizzaRestaurantTest {
 
     @Test
     void calculateDiscount() {
-        customer.addOrder(drink);
-        assertEquals(5.0, restaurant.calculateDiscount(customer));
+        customer.addOrder(drink); //50 - less than 100
+        assertEquals(50, restaurant.calculateDiscount(customer));
+
+        customer.addOrder(side); //150 - more than 100
+        assertEquals(135, restaurant.calculateDiscount(customer));
+        assertNotEquals(150, restaurant.calculateDiscount(customer));
+
+        customer.addOrder(pizza); //350 - more than 250, less than 500
+        assertEquals(262.5, restaurant.calculateDiscount(customer));
+        assertNotEquals(350, restaurant.calculateDiscount(customer));
+
+        customer.addOrder(pizza);
+        customer.addOrder(pizza); //750 - more than 500, less than 750
+        assertEquals(375, restaurant.calculateDiscount(customer));
+        assertNotEquals(750, restaurant.calculateDiscount(customer));
+
+        customer.addOrder(pizza);
+        customer.addOrder(pizza);
+        customer.addOrder(pizza);
         customer.addOrder(side);
-        assertEquals(15.0, restaurant.calculateDiscount(customer));
-        customer.addOrder(pizza);
-        assertEquals(65.0, restaurant.calculateDiscount(customer));
-        customer.addOrder(pizza);
-        assertNotEquals(115.0, restaurant.calculateDiscount(customer));
-        assertEquals(103.5, restaurant.calculateDiscount(customer));
-        customer.addOrder(pizza);
-        customer.addOrder(pizza);
-        assertNotEquals(215.0, restaurant.calculateDiscount(customer));
-        assertEquals(172.0, restaurant.calculateDiscount(customer));
+        customer.addOrder(drink); //1500
+        assertEquals(375, restaurant.calculateDiscount(customer));
+        assertNotEquals(1500, restaurant.calculateDiscount(customer));
     }
 
     @Test
@@ -68,11 +73,9 @@ class PizzaRestaurantTest {
     {
         try
         {
-            customer.addOrder(drink);
             customer.addOrder(pizza);
-            customer.addOrder(side);
-            assertEquals(74.75, restaurant.payBill(customer));
-            assertEquals(925.25, customer.getMoney());
+            assertEquals(207, restaurant.payBill(customer));
+            assertEquals(793, customer.getMoney());
         } catch (Exception e)
         {
             throw new RuntimeException(e);
