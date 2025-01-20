@@ -1,5 +1,6 @@
 package Library;
 
+import Library.Enums.Genre;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,8 @@
 package Library;
 
+import Library.Enums.Genre;
+import Library.Exceptions.BookAlreadyInTheLibrary;
+import Library.Exceptions.BookNotFound;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,31 +37,35 @@ class LibraryTest
     @Test
     void addBook()
     {
-        assertEquals(0, library.getBooks().size());
-        library.addBook(book);
-        library.addBook(book1);
-        assertEquals(2, library.getBooks().size());
-        library.addBook(book2);
-        library.addBook(book3);
-        assertEquals(4, library.getBooks().size());
-        assertThrows(IllegalArgumentException.class, () -> library.addBook(book));
-        assertThrows(IllegalArgumentException.class, () -> library.addBook(book1));
-        assertThrows(IllegalArgumentException.class, () -> library.addBook(book2));
-        assertThrows(IllegalArgumentException.class, () -> library.addBook(book3));
+        try {
+            assertEquals(0, library.getBooks().size());
+            library.addBook(book);
+            library.addBook(book1);
+            assertEquals(2, library.getBooks().size());
+            library.addBook(book2);
+            library.addBook(book3);
+            assertEquals(4, library.getBooks().size());
+        } catch (BookAlreadyInTheLibrary e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
-    void removeBook()
-    {
-        assertEquals(0, library.getBooks().size());
-        library.addBook(book);
-        library.addBook(book1);
-        library.addBook(book2);
-        library.addBook(book3);
-        assertEquals(4, library.getBooks().size());
-        library.removeBook(book);
-        library.removeBook(book1);
-        assertEquals(2, library.getBooks().size());
-        assertThrows(IllegalArgumentException.class, () -> library.removeBook(book));
+    void removeBook() throws BookAlreadyInTheLibrary, BookNotFound {
+            assertEquals(0, library.getBooks().size());
+            library.addBook(book);
+            library.addBook(book1);
+            library.addBook(book2);
+            library.addBook(book3);
+            assertEquals(4, library.getBooks().size());
+
+            library.removeBook(book);
+            library.removeBook(book1);
+            assertEquals(2, library.getBooks().size());
+
+            assertThrows(BookNotFound.class, () -> library.removeBook(book));
+            assertThrows(BookNotFound.class, () -> library.removeBook(book1));
+            assertThrows(BookAlreadyInTheLibrary.class, () -> library.addBook(book2));
+            assertThrows(BookAlreadyInTheLibrary.class, () -> library.addBook(book3));
     }
 }

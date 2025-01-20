@@ -1,50 +1,85 @@
 package Library;
 
-import java.util.HashMap;
+import Library.Exceptions.BookAlreadyInTheLibrary;
+import Library.Exceptions.BookNotFound;
+
+import java.util.*;
 
 public class Library
 {
+    /**
+     * Parameters of the library
+     */
     private String name;
-    private HashMap<Book, Integer> books;
+    private final ArrayList<Book> books;
 
+    /**
+     * Constructor of the library
+     * @param name
+     */
     public Library(String name)
     {
         this.name = name;
-        this.books = new HashMap<>();
+        this.books = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
+    /**
+     * Get the name of the library
+     * @return a string
+     */
+    public String getName()
+    {
+        return this.name;
     }
 
-    public void setName(String name) {
+    /**
+     * Change the name of the library
+     * @param name
+     */
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public HashMap<Book, Integer> getBooks() {
-        return books;
+    /**
+     * Get all the books from the library
+     * @return a list of books
+     */
+    public ArrayList<Book> getBooks()
+    {
+        return this.books;
     }
 
-    public void addBook(Book book)
+    /**
+     * Add a new book to the library
+     * @param book
+     * @throws BookAlreadyInTheLibrary
+     */
+    public void addBook(Book book) throws BookAlreadyInTheLibrary
     {
-        if(books.containsKey(book))
+        if(this.books.contains(book))
         {
-            throw new IllegalArgumentException("Book already exists");
+            throw new BookAlreadyInTheLibrary();
         }
         else {
-            books.put(book, 1);
+            this.books.add(book);
         }
     }
 
-    public void removeBook(Book book)
+    /**
+     * Remove a book from the library
+     * @param book
+     * @throws BookNotFound
+     */
+    public void removeBook(Book book) throws BookNotFound
     {
-        if(books.containsKey(book))
+        if(this.books.contains(book))
         {
-            books.remove(book);
+            this.books.remove(book);
         }
         else
         {
-            throw new IllegalArgumentException("Book not found");
+            throw new BookNotFound();
         }
     }
 }
