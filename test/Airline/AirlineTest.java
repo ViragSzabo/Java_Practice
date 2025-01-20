@@ -1,5 +1,10 @@
 package Airline;
 
+import Airline.Airlines.Airline;
+import Airline.Airlines.Types;
+import Airline.Exceptions.InvalidData;
+import Airline.Flights.Flight;
+import Airline.Passengers.Passenger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -7,46 +12,70 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AirlineTest {
+class AirlineTest
+{
     private Airline airline;
     private Flight flight;
     private Passenger passenger;
 
     @BeforeEach
-    void setUp() {
-        this.airline = new Airline("KLM");
+    void setUp()
+    {
+        this.airline = new Airline();
         this.flight = new Flight("ABC123", "BUD");
-        this.passenger = new Passenger("Niall", "Horan", LocalDate.of(1993, 9, 13), "GFL567");
+        this.passenger = new Passenger
+                ("Niall", "Horan",
+                        LocalDate.of(1993, 9, 13),
+                        "GFL567");    }
+
+    @Test
+    void setType()
+    {
+        assertEquals(Types.NOT_SPECIFY, airline.getType());
+        airline.setType(Types.KLM);
+        assertEquals(Types.KLM, airline.getType());
     }
 
     @Test
-    void setName() {
-        assertEquals("KLM", airline.getName());
-        airline.setName("NL-KLM");
-        assertEquals("NL-KLM", airline.getName());
-    }
-
-    @Test
-    void removeFlight() {
+    void removeFlight()
+    {
         airline.addFlight(flight);
         assertEquals(1, airline.getFlights().size());
         assertThrows(IllegalArgumentException.class, () -> airline.removeFlight("KLM965"));
-        airline.removeFlight(flight.getFlightNumber());
+        try {
+            airline.removeFlight(flight.getFlightNumber());
+        } catch (InvalidData e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
-    void bookFlight() {
+    void bookFlight()
+    {
         airline.addFlight(flight);
-        airline.bookFlight(passenger, flight.getFlightNumber());
+        try {
+            airline.bookFlight(passenger, flight.getFlightNumber());
+        } catch (InvalidData e) {
+            throw new RuntimeException(e);
+        }
         assertThrows(IllegalArgumentException.class, () -> airline.bookFlight(passenger, "KLM956"));
     }
 
     @Test
-    void cancelBooking() {
+    void cancelBooking()
+    {
         airline.addFlight(flight);
-        airline.bookFlight(passenger, flight.getFlightNumber());
+        try {
+            airline.bookFlight(passenger, flight.getFlightNumber());
+        } catch (InvalidData e) {
+            throw new RuntimeException(e);
+        }
         assertEquals(1, airline.getFlights().size());
-        airline.cancelBooking(passenger, flight.getFlightNumber());
-        assertThrows(IllegalArgumentException.class, () -> airline.cancelBooking(passenger, "KLM956"));
+        try {
+            airline.cancelBooking(passenger, flight.getFlightNumber());
+        } catch (InvalidData e) {
+            throw new RuntimeException(e);
+        }
+        assertThrows(InvalidData.class, () -> airline.cancelBooking(passenger, "KLM956"));
     }
 }

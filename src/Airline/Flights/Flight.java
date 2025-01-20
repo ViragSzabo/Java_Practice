@@ -1,4 +1,6 @@
-package Airline;
+package Airline.Flights;
+
+import Airline.Passengers.Passenger;
 
 import java.util.ArrayList;
 

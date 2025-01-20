@@ -1,39 +1,53 @@
-package Airline;
+package Airline.Airlines;
+
+import Airline.Exceptions.InvalidData;
+import Airline.Flights.Flight;
+import Airline.Passengers.Passenger;
 
 import java.util.ArrayList;
 
 public class Airline
 {
-    private String name;
+    /** Parameters of Airline */
+    private Types type;
     private final ArrayList<Flight> flights;
 
-    public Airline(String name)
+    /** Constructor of Airline */
+    public Airline()
     {
-        this.name = name;
+        this.type = Types.NOT_SPECIFY;
         this.flights = new ArrayList<>();
     }
 
-    public String getName()
-    {
-        return name;
+    /**
+     * Get the type of the Airline
+     * @return a string
+     */
+    public Types getType() {
+        return type;
+    }
+    /** Change the type of the airline */
+    public void setType(Types type) {
+        this.type = type;
     }
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
+    /**
+     * Get the flights of the airline
+     * @return a list
+     */
     public ArrayList<Flight> getFlights()
     {
         return flights;
     }
 
+    /** Add a new flight to the airline */
     public void addFlight(Flight flight)
     {
         flights.add(flight);
     }
 
-    public void removeFlight(String flightNumber)
+    /** Remove a flight from the airline */
+    public void removeFlight(String flightNumber) throws InvalidData
     {
         boolean flightFound = false;
         for(Flight flight : flights)
@@ -48,11 +62,12 @@ public class Airline
         }
         if (!flightFound)
         {
-            throw new IllegalArgumentException("Invalid flight number!");
+            throw new InvalidData();
         }
     }
 
-    public void bookFlight(Passenger passenger, String flightNumber)
+    /** Book a flight for a specific passenger */
+    public void bookFlight(Passenger passenger, String flightNumber) throws InvalidData
     {
         for(Flight flight : flights)
         {
@@ -63,12 +78,13 @@ public class Airline
             }
             else
             {
-                throw new IllegalArgumentException("Invalid flight number");
+                throw new InvalidData();
             }
         }
     }
 
-    public void cancelBooking(Passenger passenger, String flightNumber)
+    /** Cancel a booking for a specific passenger */
+    public void cancelBooking(Passenger passenger, String flightNumber) throws InvalidData
     {
         boolean flightFound = false;
         for(Flight flight : flights)
@@ -83,7 +99,7 @@ public class Airline
         }
         if (!flightFound)
         {
-            throw new IllegalArgumentException("Invalid flight number!");
+            throw new InvalidData();
         }
     }
 }

@@ -1,5 +1,7 @@
 package Airline;
 
+import Airline.Flights.Flight;
+import Airline.Passengers.Passenger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +18,10 @@ class FlightTest
     void setUp()
     {
         flight = new Flight("ABC123", "BUD");
-    }
+        this.passenger = new Passenger
+                ("Niall", "Horan",
+                        LocalDate.of(1993, 9, 13),
+                        "GFL567");    }
 
     @Test
     void setFlightNumber()
