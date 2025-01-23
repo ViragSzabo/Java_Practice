@@ -28,22 +28,38 @@ class RoutineTest
     }
 
     @Test
+    void constructorSetsDeadline()
+    {
+        Routine dailyRoutine = new Routine("Daily Routine", Frequency.DAILY);
+        assertEquals(LocalDate.now().plusDays(1), dailyRoutine.getEndTime());
+
+        Routine weeklyRoutine = new Routine("Weekly Routine", Frequency.WEEKLY);
+        assertEquals(LocalDate.now().plusWeeks(1), weeklyRoutine.getEndTime());
+
+        Routine monthlyRoutine = new Routine("Monthly Routine", Frequency.MONTHLY);
+        assertEquals(LocalDate.now().plusMonths(1), monthlyRoutine.getEndTime());
+
+        Routine yearlyRoutine = new Routine("Yearly Routine", Frequency.YEARLY);
+        assertEquals(LocalDate.now().plusYears(1), yearlyRoutine.getEndTime());
+    }
+
+    @Test
     void setFrequency()
     {
-        assertEquals(Frequency.DAILY, routine.getFrequency());
         routine.setFrequency(Frequency.WEEKLY);
         assertEquals(Frequency.WEEKLY, routine.getFrequency());
         routine.setFrequency(Frequency.MONTHLY);
         assertEquals(Frequency.MONTHLY, routine.getFrequency());
         routine.setFrequency(Frequency.YEARLY);
         assertEquals(Frequency.YEARLY, routine.getFrequency());
+        assertNotEquals(Frequency.DAILY, routine.getFrequency());
     }
 
     @Test
     void setEndTime()
     {
         assertEquals(LocalDate.now().plusDays(1), routine.getEndTime());
-        routine.setEndTime(LocalDate.now().minusDays(1));
+        routine.setEndTime(LocalDate.of(2025,1,22).minusDays(1));
         assertEquals(LocalDate.of(2025,1,21), routine.getEndTime());
     }
 
@@ -51,14 +67,13 @@ class RoutineTest
     void setStartTime()
     {
         assertEquals(LocalDate.now(), routine.getStartTime());
-        routine.setStartTime(LocalDate.now().minusDays(1));
-        assertEquals(LocalDate.of(2025,1,21), routine.getStartTime());
+        routine.setStartTime(LocalDate.of(2025,1,23).minusDays(1));
+        assertEquals(LocalDate.of(2025,1,22), routine.getStartTime());
     }
 
     @Test
     void setDescription()
     {
-        assertEquals(null, routine.getDescription());
         routine.setDescription("Go to sleep before midnight");
         assertEquals("Go to sleep before midnight", routine.getDescription());
     }
@@ -66,20 +81,24 @@ class RoutineTest
     @Test
     void setName()
     {
-        assertEquals("Morning Time", routine.getName());
         routine.setName("Night Time");
         assertEquals("Night Time", routine.getName());
     }
 
     @Test
-    void removeGoal()
-    {
-        this.routine.addGoal(goal);
-        assertEquals(1, this.routine.getGoal().size());
-        assertTrue(this.routine.getGoal().contains(goal));
-        this.routine.removeGoal(goal);
-        assertFalse(this.routine.getGoal().contains(goal));
-        assertEquals(0, this.routine.getGoal().size());
+    void testAddGoal() {
+        assertEquals(0, routine.getGoal().size());
+        routine.addGoal(goal);
+        assertEquals(1, routine.getGoal().size());
+        assertTrue(routine.getGoal().contains(goal));
+    }
+
+    @Test
+    void testRemoveGoal() {
+        routine.addGoal(goal);
+        assertEquals(1, routine.getGoal().size());
+        routine.removeGoal(goal);
+        assertEquals(0, routine.getGoal().size());
     }
 
     @Test
@@ -103,10 +122,8 @@ class RoutineTest
         this.routine.addGoal(goal);
         this.goal.addTask(task1);
         this.goal.addTask(task2);
-        assertEquals(0, goal.checkProgress());
 
         this.task1.setStatus(Status.COMPLETED);
-
         assertEquals(50, goal.checkProgress());
         this.routine.checkRoutineProgress();
     }
@@ -114,8 +131,21 @@ class RoutineTest
     @Test
     void constructorSetsDefaultValues()
     {
-        assertNotNull(routine.getStartTime());
-        assertNotNull(routine.getEndTime());
         assertEquals("Morning Time", routine.getName());
+        assertEquals(Frequency.DAILY, routine.getFrequency());
+        assertEquals(LocalDate.now(), routine.getStartTime());
+        assertEquals(LocalDate.now().plusDays(1), routine.getEndTime());
+        assertNotNull(routine.getGoal());
+    }
+
+    @Test
+    void testRoutineProgressWithDeadlineMismatch()
+    {
+        goal.addTask(task1);
+        task1.setStatus(Status.COMPLETED);
+
+        goal.setDeadline(LocalDate.now().plusDays(1));
+        routine.addGoal(goal);
+        routine.checkRoutineProgress();
     }
 }

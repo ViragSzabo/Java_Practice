@@ -41,7 +41,7 @@ class AirlineTest
     {
         airline.addFlight(flight);
         assertEquals(1, airline.getFlights().size());
-        assertThrows(IllegalArgumentException.class, () -> airline.removeFlight("KLM965"));
+        assertThrows(InvalidData.class, () -> airline.removeFlight("KLM965"));
         try {
             airline.removeFlight(flight.getFlightNumber());
         } catch (InvalidData e) {
@@ -58,7 +58,7 @@ class AirlineTest
         } catch (InvalidData e) {
             throw new RuntimeException(e);
         }
-        assertThrows(IllegalArgumentException.class, () -> airline.bookFlight(passenger, "KLM956"));
+        assertThrows(InvalidData.class, () -> airline.bookFlight(passenger, "KLM956"));
     }
 
     @Test
