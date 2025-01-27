@@ -72,4 +72,23 @@ class FoodOrderTest
         assertNotEquals(0.50, this.foodOrder.calculateDeliveryFee());
         assertEquals(0.75, this.foodOrder.calculateDeliveryFee());
     }
+
+    @Test
+    void OrderInformation()
+    {
+        this.foodOrder.setOrderID(111);
+        assertEquals(111, this.foodOrder.getOrderID());
+
+        this.foodOrder.setCustomerID(1);
+        assertEquals(1, this.foodOrder.getCustomerID());
+
+        this.foodOrder.addFood(FoodType.DESSERT);
+        try {
+            assertEquals(5.25, this.foodOrder.calculateTotalPrice());
+        } catch (InvalidOrderException e) {
+            throw new RuntimeException(e);
+        }
+        this.foodOrder.setPrice(6.0);
+        assertEquals(6.0, this.foodOrder.getPrice());
+    }
 }
