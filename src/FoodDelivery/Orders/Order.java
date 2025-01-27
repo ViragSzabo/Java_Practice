@@ -11,8 +11,12 @@ public abstract class Order
     private final double price;
 
     /** Constructor of the Order with parameter validation */
-    public Order(int orderID, int customerID)
+    public Order(int orderID, int customerID) throws InvalidGivenID
     {
+        if (orderID <= 0 || customerID <= 0)
+        {
+            throw new InvalidGivenID();
+        }
         this.orderID = orderID;
         this.customerID = customerID;
         this.price = 0.0;
