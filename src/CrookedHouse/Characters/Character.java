@@ -19,6 +19,9 @@ public abstract class Character
         this.isMurderer = isMurderer;
     }
 
+    public Character(String name, int age) {
+    }
+
     /** Getter and Setter Methods */
     public String getName()
     {
