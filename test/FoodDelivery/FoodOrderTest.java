@@ -1,6 +1,7 @@
 package FoodDelivery;
 
 import FoodDelivery.Exceptions.FoodTypeCannotBeNull;
+import FoodDelivery.Exceptions.InvalidGivenID;
 import FoodDelivery.Exceptions.InvalidOrderException;
 import FoodDelivery.Orders.FoodOrder;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,8 +14,7 @@ class FoodOrderTest
     private FoodOrder foodOrder;
 
     @BeforeEach
-    void setUp()
-    {
+    void setUp() throws InvalidGivenID {
         this.foodOrder = new FoodOrder(123, 34);
     }
 
@@ -86,15 +86,18 @@ class FoodOrderTest
     }
 
     @Test
-    void OrderInformation() throws InvalidOrderException, FoodTypeCannotBeNull
-    {
+    void OrderInformation() throws InvalidOrderException, FoodTypeCannotBeNull, InvalidGivenID {
         this.foodOrder.setOrderID(111);
         assertEquals(111, this.foodOrder.getOrderID());
+        assertThrows(InvalidGivenID.class, () -> this.foodOrder.setOrderID(-1));
 
         this.foodOrder.setCustomerID(1);
         assertEquals(1, this.foodOrder.getCustomerID());
+        assertThrows(InvalidGivenID.class, () -> this.foodOrder.setCustomerID(-1));
 
         this.foodOrder.addFood(FoodType.DESSERT);
         assertEquals(5.25, this.foodOrder.calculateTotalPrice());
+
+        assertTrue(this.foodOrder.toString().contains("Order ID"));
     }
 }

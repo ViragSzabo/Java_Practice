@@ -1,5 +1,6 @@
 package FoodDelivery.Orders;
 
+import FoodDelivery.Exceptions.InvalidGivenID;
 import FoodDelivery.Exceptions.InvalidOrderException;
 
 public abstract class Order
@@ -7,15 +8,11 @@ public abstract class Order
     /** Parameters of the Order */
     private int orderID;
     private int customerID;
-    private double price;
+    private final double price;
 
     /** Constructor of the Order with parameter validation */
     public Order(int orderID, int customerID)
     {
-        if(orderID < 0 || customerID < 0)
-        {
-            throw new IllegalArgumentException("Order ID and Customer ID must be non-negative");
-        }
         this.orderID = orderID;
         this.customerID = customerID;
         this.price = 0.0;
@@ -37,8 +34,12 @@ public abstract class Order
      * Set the order ID
      * @param orderID is the new ID
      */
-    public void setOrderID(int orderID)
+    public void setOrderID(int orderID) throws InvalidGivenID
     {
+        if(orderID <= 0)
+        {
+            throw new InvalidGivenID();
+        }
         this.orderID = orderID;
     }
 
@@ -55,8 +56,12 @@ public abstract class Order
      * Set the customer ID
      * @param customerID is the new ID
      */
-    public void setCustomerID(int customerID)
+    public void setCustomerID(int customerID) throws InvalidGivenID
     {
+        if(customerID <= 0)
+        {
+            throw new InvalidGivenID();
+        }
         this.customerID = customerID;
     }
 
