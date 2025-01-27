@@ -19,6 +19,7 @@ class FoodOrderTest
     void calculateTotalPrice()
     {
         assertThrows(InvalidOrderException.class, () -> this.foodOrder.calculateTotalPrice());
+
         this.foodOrder.addFood(FoodType.DESSERT);
         try {
             assertEquals(5.25, this.foodOrder.calculateTotalPrice());

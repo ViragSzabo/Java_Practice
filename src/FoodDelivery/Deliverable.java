@@ -2,5 +2,6 @@ package FoodDelivery;
 
 public interface Deliverable
 {
-    public double calculateDeliveryFee();
+    /** Calculate the delivery fee based on the quantity of the food order */
+    double calculateDeliveryFee();
 }

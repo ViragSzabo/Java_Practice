@@ -4,14 +4,21 @@ import java.util.ArrayList;
 
 public class FoodOrder extends Order implements Deliverable
 {
+    /** Parameter of the FoodOrder */
     private final ArrayList<FoodType> foods;
 
+    /** Constructor */
     public FoodOrder(int orderID, int customerID)
     {
         super(orderID, customerID);
         this.foods = new ArrayList<>();
     }
 
+    /**
+     * Calculate the total price of the order
+     * @return a double
+     * @throws InvalidOrderException if there is no order
+     */
     @Override
     public double calculateTotalPrice() throws InvalidOrderException
     {
@@ -27,6 +34,10 @@ public class FoodOrder extends Order implements Deliverable
         return totalPrice + calculateDeliveryFee();
     }
 
+    /**
+     * Calculate the total delivery fee based on the quantity of the order
+     * @return a double
+     */
     @Override
     public double calculateDeliveryFee()
     {
@@ -44,11 +55,19 @@ public class FoodOrder extends Order implements Deliverable
         return deliveryFee;
     }
 
+    /**
+     * Get the order list
+     * @return a list
+     */
     public ArrayList<FoodType> getType()
     {
         return this.foods;
     }
 
+    /**
+     * Add a new order to the list
+     * @param type is the new order
+     */
     public void addFood(FoodType type)
     {
         this.foods.add(type);
