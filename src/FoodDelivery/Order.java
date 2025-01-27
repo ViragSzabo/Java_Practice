@@ -1,5 +1,7 @@
 package FoodDelivery;
 
+import FoodDelivery.Exceptions.InvalidOrderException;
+
 public abstract class Order
 {
     /** Parameters of the Order */
@@ -71,4 +73,11 @@ public abstract class Order
     {
         this.price = price;
     }
+
+    /**
+     * Provide readable summary of the object
+     * For debugging and logging purposes only
+     * @return a string of summary info
+     */
+    public abstract String toString();
 }

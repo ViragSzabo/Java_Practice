@@ -1,4 +1,4 @@
-package FoodDelivery;
+package FoodDelivery.Exceptions;
 
 public class InvalidOrderException extends Exception
 {

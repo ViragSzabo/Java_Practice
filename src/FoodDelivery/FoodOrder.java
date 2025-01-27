@@ -1,5 +1,8 @@
 package FoodDelivery;
 
+import FoodDelivery.Exceptions.FoodTypeCannotBeNull;
+import FoodDelivery.Exceptions.InvalidOrderException;
+
 import java.util.ArrayList;
 
 public class FoodOrder extends Order implements Deliverable
@@ -41,18 +44,16 @@ public class FoodOrder extends Order implements Deliverable
     @Override
     public double calculateDeliveryFee()
     {
-        double deliveryFee = 0;
-        if(!foods.isEmpty() && foods.size() < 5)
-        {
-            deliveryFee += 0.25;
-        } else if(foods.size() >= 5 && foods.size() < 10)
-        {
-            deliveryFee += 0.50;
-        } else if(foods.size() >= 10 && foods.size() < 15)
-        {
-            deliveryFee += 0.75;
-        }
-        return deliveryFee;
+        int size = foods.size();
+        if(size >= 15) return 0.95;
+        if(size >= 10) return 0.75;
+        if(size >= 5) return 0.50;
+        return 0.25;
+    }
+
+    @Override
+    public String toString() {
+        return "Order ID: " + this.getOrderID() + " - Customer ID: " + this.getCustomerID() + ": Price: " + this.getPrice();
     }
 
     /**
@@ -68,8 +69,12 @@ public class FoodOrder extends Order implements Deliverable
      * Add a new order to the list
      * @param type is the new order
      */
-    public void addFood(FoodType type)
+    public void addFood(FoodType type) throws FoodTypeCannotBeNull
     {
+        if(type == null)
+        {
+            throw new FoodTypeCannotBeNull();
+        }
         this.foods.add(type);
     }
 }
