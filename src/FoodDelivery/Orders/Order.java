@@ -1,4 +1,4 @@
-package FoodDelivery;
+package FoodDelivery.Orders;
 
 import FoodDelivery.Exceptions.InvalidOrderException;
 

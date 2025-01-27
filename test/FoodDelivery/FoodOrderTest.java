@@ -2,6 +2,7 @@ package FoodDelivery;
 
 import FoodDelivery.Exceptions.FoodTypeCannotBeNull;
 import FoodDelivery.Exceptions.InvalidOrderException;
+import FoodDelivery.Orders.FoodOrder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

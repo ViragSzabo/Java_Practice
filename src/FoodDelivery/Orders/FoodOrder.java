@@ -1,7 +1,9 @@
-package FoodDelivery;
+package FoodDelivery.Orders;
 
+import FoodDelivery.Deliverable;
 import FoodDelivery.Exceptions.FoodTypeCannotBeNull;
 import FoodDelivery.Exceptions.InvalidOrderException;
+import FoodDelivery.FoodType;
 
 import java.util.ArrayList;
 
