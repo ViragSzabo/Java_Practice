@@ -1,6 +1,5 @@
 package FoodDelivery;
 
-import Airline.Exceptions.InvalidData;
 import FoodDelivery.Exceptions.FoodTypeCannotBeNull;
 import FoodDelivery.Exceptions.InvalidOrderException;
 import FoodDelivery.Orders.FoodOrder;
@@ -14,7 +13,7 @@ class FoodOrderTest
     private FoodOrder foodOrder;
 
     @BeforeEach
-    void setUp() throws InvalidData
+    void setUp()
     {
         this.foodOrder = new FoodOrder(123, 34);
     }

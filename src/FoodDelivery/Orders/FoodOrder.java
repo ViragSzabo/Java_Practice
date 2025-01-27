@@ -1,6 +1,5 @@
 package FoodDelivery.Orders;
 
-import Airline.Exceptions.InvalidData;
 import FoodDelivery.Deliverable;
 import FoodDelivery.Exceptions.FoodTypeCannotBeNull;
 import FoodDelivery.Exceptions.InvalidOrderException;
@@ -17,7 +16,8 @@ public class FoodOrder extends Order implements Deliverable
     protected static final double LOW_ORDER_COUNT = 5;
 
     /** Constructor */
-    public FoodOrder(int orderID, int customerID) {
+    public FoodOrder(int orderID, int customerID)
+    {
         super(orderID, customerID);
         this.foods = new ArrayList<>();
     }

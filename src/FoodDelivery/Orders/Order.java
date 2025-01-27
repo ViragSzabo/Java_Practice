@@ -1,6 +1,5 @@
 package FoodDelivery.Orders;
 
-import Airline.Exceptions.InvalidData;
 import FoodDelivery.Exceptions.InvalidOrderException;
 
 public abstract class Order
