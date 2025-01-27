@@ -1,5 +1,6 @@
 package FoodDelivery.Orders;
 
+import Airline.Exceptions.InvalidData;
 import FoodDelivery.Deliverable;
 import FoodDelivery.Exceptions.FoodTypeCannotBeNull;
 import FoodDelivery.Exceptions.InvalidOrderException;
@@ -11,10 +12,12 @@ public class FoodOrder extends Order implements Deliverable
 {
     /** Parameter of the FoodOrder */
     private final ArrayList<FoodType> foods;
+    protected static final double HIGH_ORDER_COUNT = 15;
+    protected static final double MEDIUM_ORDER_COUNT = 10;
+    protected static final double LOW_ORDER_COUNT = 5;
 
     /** Constructor */
-    public FoodOrder(int orderID, int customerID)
-    {
+    public FoodOrder(int orderID, int customerID) {
         super(orderID, customerID);
         this.foods = new ArrayList<>();
     }
@@ -47,15 +50,19 @@ public class FoodOrder extends Order implements Deliverable
     public double calculateDeliveryFee()
     {
         int size = foods.size();
-        if(size >= 15) return 0.95;
-        if(size >= 10) return 0.75;
-        if(size >= 5) return 0.50;
+        if(size >= HIGH_ORDER_COUNT) return 0.95;
+        if(size >= MEDIUM_ORDER_COUNT) return 0.75;
+        if(size >= LOW_ORDER_COUNT) return 0.50;
         return 0.25;
     }
 
     @Override
-    public String toString() {
-        return "Order ID: " + this.getOrderID() + " - Customer ID: " + this.getCustomerID() + ": Price: " + this.getPrice();
+    public String toString()
+    {
+        return "Order ID: " + this.getOrderID() +
+                " - Customer ID: " + this.getCustomerID() +
+                "including Food: " + foods.toString() +
+                " and Price: " + this.getPrice();
     }
 
     /**

@@ -1,5 +1,6 @@
 package FoodDelivery.Orders;
 
+import Airline.Exceptions.InvalidData;
 import FoodDelivery.Exceptions.InvalidOrderException;
 
 public abstract class Order
@@ -9,9 +10,13 @@ public abstract class Order
     private int customerID;
     private double price;
 
-    /** Constructor of the Order */
+    /** Constructor of the Order with parameter validation */
     public Order(int orderID, int customerID)
     {
+        if(orderID < 0 || customerID < 0)
+        {
+            throw new IllegalArgumentException("Order ID and Customer ID must be non-negative");
+        }
         this.orderID = orderID;
         this.customerID = customerID;
         this.price = 0.0;
@@ -63,15 +68,6 @@ public abstract class Order
     public double getPrice()
     {
         return price;
-    }
-
-    /**
-     * Set the price
-     * @param price is the new price
-     */
-    public void setPrice(double price)
-    {
-        this.price = price;
     }
 
     /**
